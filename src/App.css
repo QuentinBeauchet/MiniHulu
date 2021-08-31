@@ -1,38 +1,293 @@
-.App {
-  text-align: center;
+body {
+  background-color: #0b1e29;
+  color: #fff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body::-webkit-scrollbar {
+  width: 1em;
+  background-color: transparent;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body::-webkit-scrollbar-thumb {
+  background: #aaa;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 0;
+  margin-right: 3.5em;
+}
+
+li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding-left: 3.5em;
+  min-width: fit-content;
+}
+
+.menuElSvg {
+  width: 3em;
+}
+
+.menuElSvg,
+#searchSvg {
+  transition: width 1s;
+}
+
+li > h4 {
+  margin: 0;
+  opacity: 0;
+  transition: 1s;
+}
+
+li:hover > h4 {
+  opacity: 100%;
+}
+
+li:hover > .menuEl {
+  animation: jump 0.8s infinite ease-in-out;
+}
+
+@keyframes jump {
+  0% {
+    margin: 0;
+  }
+  50% {
+    margin: -0.5em 0 0.5em 0;
+  }
+  100% {
+    margin: 0;
+  }
+}
+
+header > img {
+  width: 12em;
+  padding-right: 3.5em;
+}
+
+.menuEl {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+#search {
+  font-size: 2.5em;
   color: white;
+  width: 0px;
+  animation: search 0.8s ease-in-out;
+  animation-fill-mode: forwards;
+  background-color: transparent;
+  border: 1px solid white;
+  min-width: 0px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+@keyframes search {
   from {
-    transform: rotate(0deg);
+    min-width: 0px;
   }
   to {
-    transform: rotate(360deg);
+    min-width: 25rem;
+  }
+}
+
+#search::placeholder {
+  color: rgb(177, 177, 177);
+}
+
+#pagination {
+  display: inline-block;
+  color: #fff;
+  margin: 2em 0 3em;
+}
+
+#pagination > button {
+  vertical-align: middle;
+  color: #fff;
+  padding: 0.5em;
+  font-size: 1em;
+  text-decoration: none;
+  background: none;
+  border: none;
+  border-radius: 10em;
+  width: 2.5em;
+  height: 2.5em;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+#pagination > button:hover {
+  background-color: #145c86;
+}
+
+#firstButton {
+  margin-right: 1em;
+}
+
+#lastButton {
+  margin-left: 1em;
+}
+
+section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 35em);
+  justify-content: center;
+  margin: 3em auto;
+  gap: 1em;
+  width: 100%;
+}
+
+article {
+  overflow: hidden;
+  transition: 0.5s;
+  box-sizing: border-box;
+}
+
+.poster_h {
+  width: 100%;
+  height: fit-content;
+}
+
+.poster_v {
+  display: block;
+  width: 37.5%;
+  height: auto;
+  margin: 0 auto 0;
+}
+
+article > p {
+  font-size: small;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 2em;
+}
+
+article > h1 {
+  margin: 0;
+}
+
+article > div {
+  opacity: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  transition: 0.5s;
+}
+
+article:hover > div {
+  opacity: 100%;
+}
+
+#genders {
+  display: flex;
+  justify-content: center;
+}
+
+#genders > div {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  max-width: 80vw;
+  overflow-x: auto;
+  gap: 3em;
+}
+
+#genders > div::-webkit-scrollbar {
+  height: 8px;
+  background-color: #aaa;
+}
+
+#genders > div::-webkit-scrollbar-thumb {
+  background: #000;
+}
+
+#genders:hover {
+  cursor: pointer;
+}
+
+#genders > div > h1 {
+  min-width: fit-content;
+}
+
+@media (max-width: 1000px) {
+  #root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  header {
+    flex-direction: column;
+    justify-content: center;
+    width: fit-content;
+  }
+  .menuEl {
+    padding: 0;
+  }
+  ul {
+    margin: 0;
+    gap: 1em;
+  }
+  li {
+    padding: 0;
+  }
+  li > h4 {
+    display: none;
+  }
+  #searchSvg {
+    width: 3rem;
+  }
+  header > img {
+    padding: 0;
+  }
+}
+
+@media (max-width: 750px) {
+  #search {
+    animation: none;
+    min-width: 5rem;
+    font-size: xx-small;
+    margin: auto 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .menuElSvg,
+  #searchSvg {
+    width: 2rem;
+    transition: width 1s;
+  }
+  ul {
+    margin: 0;
+    gap: 0.5em;
+  }
+}
+
+@media (min-width: 600px) {
+  article:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 600px) {
+  section {
+    margin: 0;
+    grid-template-columns: auto;
   }
 }
